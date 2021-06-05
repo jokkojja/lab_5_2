@@ -9,6 +9,46 @@ import java.sql.SQLException;
 
 public class PeopleDAO {
 
+    public static void insert(String firstName, String lastName, Integer age)throws  SQLException, ClassNotFoundException{
+
+        String sql = "insert into people(first_name, last_name, age) values ('"+firstName+"','"+lastName+"',"+age+")";
+        try {
+            DBUtil.ExecuteQuery(sql);
+
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void update(int id, int age)throws SQLException, ClassNotFoundException{
+
+        String sql = "update people set age = "+age+" where id = '"+id+"'";
+
+        try {
+
+            DBUtil.ExecuteQuery(sql);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void delete(int id) throws SQLException, ClassNotFoundException{
+
+        String sql = "delete from people where id = '"+id+"'";
+
+        try {
+
+            DBUtil.ExecuteQuery(sql);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
     public static ObservableList<People> getAllRecords() throws ClassNotFoundException, SQLException{
 
         String sql = "Select * from people";

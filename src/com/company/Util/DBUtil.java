@@ -1,5 +1,7 @@
 package com.company.Util;
 
+import com.company.Controller.SortAndSearchAndSelectAllController;
+
 import java.sql.*;
 import javax.sql.rowset.*;
 
@@ -49,7 +51,7 @@ public class DBUtil {
 
         try {
             connect(url);
-            connection.createStatement();
+            statement = connection.createStatement();
             statement.executeUpdate(sqlStatement);
 
         } catch (SQLException e) {

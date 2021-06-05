@@ -16,7 +16,21 @@ public class SortAndSearchAndSelectAllController extends PeopleDAO {
     public javafx.scene.control.TextField SearchPerID;
     public TextField SearchPerAge;
 
+    @FXML
+    private TextField idForDelete;
 
+    @FXML
+    private TextField idForUpdate;
+
+    @FXML
+    private TextField ageForApdate;
+
+    @FXML
+    private TextField txtFirstName;
+    @FXML
+    private TextField txtLastName;
+    @FXML
+    private TextField txtAge;
     @FXML
     private TableColumn<People, Integer> ID;
 
@@ -32,8 +46,38 @@ public class SortAndSearchAndSelectAllController extends PeopleDAO {
     @FXML
     private TableView peopleTable;
 
+     @FXML
+     private void insert(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
 
-    //    private void SelectAll (ActiveEvent event) throws SQLException, ClassNotFoundException{
+         PeopleDAO.insert(txtFirstName.getText(), txtLastName.getText(), Integer.parseInt(txtAge.getText()));
+
+    }
+
+    @FXML
+    private void update(ActionEvent actionEvent) throws SQLException, ClassNotFoundException{
+
+        try {
+
+            PeopleDAO.update(Integer.parseInt(idForUpdate.getText()), Integer.parseInt(ageForApdate.getText()));
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    private void delete(ActionEvent actionEvent) throws SQLException, ClassNotFoundException{
+
+        try {
+
+            PeopleDAO.delete(Integer.parseInt(idForDelete.getText()));
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
     @FXML
     private void initialize() throws Exception{
 
@@ -96,6 +140,7 @@ public class SortAndSearchAndSelectAllController extends PeopleDAO {
         ObservableList<People> list =  PeopleDAO.SortByAge();
         populateTable(list);
     }
+
 
 
 }
