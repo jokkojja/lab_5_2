@@ -1,18 +1,21 @@
 package com.company.Controller;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import com.company.model.People;
 import com.company.model.PeopleDAO;
+import javafx.scene.control.TextField;
 
 import java.awt.*;
 import java.sql.SQLException;
 
 public class SortAndSearchAndSelectAllController extends PeopleDAO {
-    @FXML
-    private TextField Search;
+    public javafx.scene.control.TextField SearchPerID;
+    public TextField SearchPerAge;
+
 
     @FXML
     private TableColumn<People, Integer> ID;
@@ -50,5 +53,49 @@ public class SortAndSearchAndSelectAllController extends PeopleDAO {
 
 
     }
+    @FXML
+    public void searchPersonById(ActionEvent actionEvent) throws ClassNotFoundException, SQLException{
+
+
+       ObservableList<People> list =  PeopleDAO.searchPersonById(SearchPerID.getText());
+       populateTable(list);
+    }
+
+    @FXML
+    public void searchPersonByAge(ActionEvent actionEvent) throws ClassNotFoundException, SQLException{
+
+
+        ObservableList<People> list =  PeopleDAO.searchPersonByAge(SearchPerAge.getText());
+        populateTable(list);
+    }
+    @FXML
+    public void SortByID(ActionEvent actionEvent) throws ClassNotFoundException, SQLException{
+
+
+        ObservableList<People> list =  PeopleDAO.SortByID();
+        populateTable(list);
+    }
+    @FXML
+    public void SortByFirstName(ActionEvent actionEvent) throws ClassNotFoundException, SQLException{
+
+
+        ObservableList<People> list =  PeopleDAO.SortByFirstName();
+        populateTable(list);
+    }
+    @FXML
+    public void SortByLastName(ActionEvent actionEvent) throws ClassNotFoundException, SQLException{
+
+
+        ObservableList<People> list =  PeopleDAO.SortByLastName();
+        populateTable(list);
+    }
+    @FXML
+    public void SortByAge(ActionEvent actionEvent) throws ClassNotFoundException, SQLException{
+
+
+        ObservableList<People> list =  PeopleDAO.SortByAge();
+        populateTable(list);
+    }
+
 
 }

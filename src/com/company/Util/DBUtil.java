@@ -1,7 +1,7 @@
 package com.company.Util;
 
 import java.sql.*;
-import com.sun.rowset.CachedRowSetImpl;
+import javax.sql.rowset.*;
 
 
 
@@ -9,12 +9,12 @@ public class DBUtil {
 
     private static final String JDBC_DRIVER = "org.sqlite.JDBC";
 
-    private static Connection connection = null;
+    private static Connection connection;
 
     private static final String url = "jdbc:sqlite:C:\\SQLiteStudio\\laba5.db";
 
     //connect to database
-    public static void connect(String url) {
+    public static void connect(String url){
 
         try {
             Class.forName(JDBC_DRIVER);
@@ -24,23 +24,26 @@ public class DBUtil {
             e.printStackTrace();
         }
 
+
     }
 
     //disconnect
-    public static void disconnect() {
+    public static void disconnect() throws SQLException, ClassNotFoundException {
 
         try {
             connection.close();
-            System.out.println("Connection close");
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Connection failed. Problem" + e);
         }
+        System.out.println("Connection close");
+
 
     }
 
     //for insert, delete and update operation
 
-    public static void ExecuteQuery(String sqlStatement) throws SQLException {
+    public static void ExecuteQuery(String sqlStatement) throws SQLException, ClassNotFoundException {
 
         Statement statement = null;
 
@@ -64,13 +67,13 @@ public class DBUtil {
 
         Statement statement = null;
         ResultSet res = null;
-        CachedRowSetImpl set = null;
+        CachedRowSet set = null;
 
         try {
             connect(url);
             statement = connection.createStatement();
             res = statement.executeQuery(SqlQuery);
-            set = new CachedRowSetImpl();
+            set = RowSetProvider.newFactory().createCachedRowSet();
             set.populate(res);
         } catch (SQLException e) {
             e.printStackTrace();
